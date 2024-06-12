@@ -8,7 +8,7 @@ import java.util.Scanner;
 import static main.java.utils.Parsing.pars;
 
 public class Calculate {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Scanner console = new Scanner(System.in);
         System.out.println("Input:");
@@ -21,7 +21,7 @@ public class Calculate {
         } else {
             result = new Arabic().calculate(numArray);
         }
-        System.out.println(result);
+        System.out.println("Output:\n"+result);
 
     }
 

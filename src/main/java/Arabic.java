@@ -3,7 +3,7 @@ package main.java;
 public class Arabic {
 
 
-    public String calculate(String[] inputValue) {
+    public String calculate(String[] inputValue) throws Exception {
 
         int value1 = Integer.parseInt(inputValue[0]);
         int value2 = Integer.parseInt(inputValue[2]);
@@ -22,9 +22,8 @@ public class Arabic {
                 default:
                     break;
             }
-
         }
-        return "Введено число из неверного диапазона";
+        throw new Exception("Введено число из неверного диапазона");
     }
 
     private int sum(int value1, int value2) {
@@ -49,7 +48,7 @@ public class Arabic {
         try {
             result = value1 / value2;
             return result;
-        } catch (ArithmeticException e) {
+        } catch (Exception e) {
             System.out.println("Деление на 0");
             return 0;
         }

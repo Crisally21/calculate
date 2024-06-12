@@ -5,6 +5,29 @@ import java.util.Map;
 
 public class Rome {
 
+    private static String conventToResult(int num) {
+        Map<Integer, String> romMap = new HashMap<>();
+        romMap.put(1, "I");
+        romMap.put(4, "IV");
+        romMap.put(5, "V");
+        romMap.put(9, "IX");
+        romMap.put(10, "X");
+        romMap.put(40, "XL");
+        romMap.put(50, "L");
+        romMap.put(90, "XC");
+        romMap.put(100, "C");
+
+        StringBuilder result = new StringBuilder();
+        for (int value : new int[]{100, 90, 50, 40, 10, 9, 5, 4, 1}) {
+            while (num >= value) {
+                result.append(romMap.get(value));
+                num -= value;
+            }
+        }
+        return result.toString();
+    }
+
+
     private int convertRomeToInt(String num) {
 
         Map<Character, Integer> romNumbers = new HashMap<>();
@@ -31,7 +54,7 @@ public class Rome {
 
     }
 
-    public String calculate(String[] inputValue) {
+    public String calculate(String[] inputValue) throws Exception {
 
         int value1 = convertRomeToInt(inputValue[0]);
         int value2 = convertRomeToInt(inputValue[2]);
@@ -40,24 +63,26 @@ public class Rome {
         if ((value1 > 0 && value1 < 11) && (value2 > 0 && value2 < 11)) {
             switch (operation) {
                 case "+":
-                    return String.valueOf(sum(value1, value2));
+                    return conventToResult(sum(value1, value2));
                 case "-":
-                    if (!(value2 > value1)){
-                        return String.valueOf(sub(value1, value2));
+                    if (value1 == value2) {
+                        throw new Exception("в римской системе нет нуля");
+
+                    } else if (!(value2 < value1)) {
+                        throw new Exception("в римской системе нет отрицательных чисел");
                     } else {
-                        System.out.println("В ответе не может быть отрицательное число");
-                        System.exit(0);
+                        return conventToResult(sub(value1, value2));
                     }
                 case "*":
-                    return String.valueOf(mul(value1, value2));
+                    return conventToResult(mul(value1, value2));
                 case "/":
-                    return String.valueOf(div(value1, value2));
+                    return conventToResult(div(value1, value2));
                 default:
                     break;
             }
 
         }
-        return "Введено число из неверного диапазона";
+        throw new Exception("Введено число из неверного диапазона");
     }
 
     private int sum(int value1, int value2) {

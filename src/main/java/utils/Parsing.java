@@ -33,12 +33,11 @@ public class Parsing {
         return true;
     }
 
-    public static String[] pars(String input) {
+    public static String[] pars(String input) throws Exception {
 
         String[] symbolArray = input.split(" ");
         if (symbolArray.length != 3) {
-            System.out.println("Вводите цифры и арифметические операции через пробел!");
-            System.exit(0);
+            throw new Exception("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
 
         }
         String[] resultArray = new String[4];
@@ -56,12 +55,10 @@ public class Parsing {
                 resultArray[3] = "R";
 
             } else {
-                System.out.println("Введено некорректное значение");
-                System.exit(0);
+                throw new Exception("используются одновременно разные системы счисления");
             }
         } else {
-            System.out.println("Введен неверный знак");
-            System.exit(0);
+            throw new Exception("Введено не верное арифметическое значение");
         }
 
         return resultArray;

@@ -5,6 +5,18 @@ import java.util.Map;
 
 public class Rome {
 
+    private static boolean correctInput(String symbol) {
+
+        String[] romeNums = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
+
+        for (String romeNum : romeNums) {
+            if (romeNum.equals(symbol)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static String conventToResult(int num) {
         Map<Integer, String> romMap = new HashMap<>();
         romMap.put(1, "I");
@@ -56,8 +68,16 @@ public class Rome {
 
     public String calculate(String[] inputValue) throws Exception {
 
-        int value1 = convertRomeToInt(inputValue[0]);
-        int value2 = convertRomeToInt(inputValue[2]);
+        int value1 = 0;
+        int value2 = 0;
+
+        if (correctInput(inputValue[0]) && correctInput(inputValue[2])) {
+            value1 = convertRomeToInt(inputValue[0]);
+            value2 = convertRomeToInt(inputValue[2]);
+        } else {
+            throw new Exception("введено римское число из неверного диапазона или не существует такого римского числа");
+        }
+
         String operation = inputValue[1];
 
         if ((value1 > 0 && value1 < 11) && (value2 > 0 && value2 < 11)) {

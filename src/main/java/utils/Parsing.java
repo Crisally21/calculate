@@ -2,6 +2,7 @@ package main.java.utils;
 
 public class Parsing {
 
+
     private static boolean isArabicDigit(String element) {
 
         char[] elements = element.toCharArray();
